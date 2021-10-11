@@ -26,7 +26,7 @@ class AssignmentController extends Controller
      */
     public function index()
     {
-        $products = Product::latest()->paginate(5);
+        $assignments = Assignment::latest()->paginate(5);
         return view('assignments.index',compact('assignments'))
             ->with('i', (request()->input('page', 1) - 1) * 5);
     }
@@ -54,7 +54,7 @@ class AssignmentController extends Controller
             'content' => 'required',
         ]);
     
-        Product::create($request->all());
+        Assignment::create($request->all());
     
         return redirect()->route('assignments.index')
                         ->with('success','assignment created successfully.');
@@ -62,8 +62,8 @@ class AssignmentController extends Controller
     
     /**
      * Display the specified resource.
-     *
-     * @param  \App\Product  $product
+     * 
+     * @param  \App\Models\Assignment  $assignment
      * @return \Illuminate\Http\Response
      */
     public function show(Assignment $assignment)
@@ -74,7 +74,7 @@ class AssignmentController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Product  $product
+     * @param  \App\Models\Assignment  $assignment
      * @return \Illuminate\Http\Response
      */
     public function edit(Assignment $assignment)
@@ -86,7 +86,7 @@ class AssignmentController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Product  $product
+     * @param  \App\Models\Assignment  $assignment
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Assignment $assignment)
@@ -96,7 +96,7 @@ class AssignmentController extends Controller
             'detail' => 'required',
         ]);
     
-        $product->update($request->all());
+        $assignment->update($request->all());
     
         return redirect()->route('assignments.index')
                         ->with('success','Assignment updated successfully');
@@ -105,14 +105,14 @@ class AssignmentController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Product  $product
+     * @param  \App\Models\Assignment  $assignment
      * @return \Illuminate\Http\Response
      */
     public function destroy(Assignment $assignment)
     {
-        $product->delete();
+        $assignment->delete();
     
         return redirect()->route('assignments.index')
-                        ->with('success','AssignmentProduct deleted successfully');
+                        ->with('success','Assignment deleted successfully');
     }
 }
